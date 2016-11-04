@@ -76,11 +76,75 @@
 </div>
 
 <script type="text/javascript">
+    var firstNumberArray = [];
+    var secondNumberArray = [];
+    var operatorSelected = false;
+    var operator;
+    var firstNumber;
+    var secondNumber;
 
 $(document).ready(function(){
 
 // Your code here...
+    $(":button").on("click", function(){
+        if ($(this).attr("class") === "btn btn-danger operator"){
+            operatorSelected = true;
+            operator = $(this).attr("value");
+            $("#operator").html(operator);
 
+        }
+
+        if ($(this).attr("id") === "buttonEqual"){
+            if (operator === "plus"){
+                $("#result").html(firstNumber+secondNumber);
+            }if (operator === "minus"){
+                $("#result").html(firstNumber-secondNumber);
+            }if (operator === "times"){
+                $("#result").html(firstNumber*secondNumber);
+            }if (operator === "divide"){
+                $("#result").html(firstNumber/secondNumber);
+            }if (operator === "power"){
+                $("#result").html(firstNumber^secondNumber);
+            }
+            operatorSelected = false;
+        }
+
+        if ($(this).attr("id") === "buttonClear"){
+            firstNumber = "";
+            firstNumberArray = [];
+            secondNumberArray = [];
+            secondNumber = "";
+            operator = "";
+            $("#firstNumber").html(firstNumber);
+            $("#secondNumber").html(secondNumber);
+            $("#operator").html(operator);
+            $("#result").html("");
+            operatorSelected = false;
+            }
+
+
+        if (operatorSelected === false){
+            if ($(this).attr("id") !== "buttonClear"){
+            console.log("button clicked.");
+            firstNumberArray.push($(this).attr("value"));
+            console.log(firstNumberArray);
+            firstNumber = parseInt(firstNumberArray.join(""));
+            $("#firstNumber").html(firstNumber);
+        }
+
+        }
+        else {
+            console.log("button clicked.");
+            if ($(this).attr("class") !== "btn btn-danger operator" && $(this).attr("id") !== "buttonClear"){
+            secondNumberArray.push($(this).attr("value"));
+            console.log(secondNumberArray);
+            secondNumber = parseInt(secondNumberArray.join(""));
+            $("#secondNumber").html(secondNumber);
+
+            }
+        }
+
+    })
 
 });
 
